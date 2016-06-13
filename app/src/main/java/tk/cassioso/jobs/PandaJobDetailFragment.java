@@ -1,8 +1,5 @@
 package tk.cassioso.jobs;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -15,16 +12,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
-import tk.cassioso.jobs.data.ImageCityFetcher;
+import tk.cassioso.jobs.data.PandaHelper;
 import tk.cassioso.jobs.data.PandaJobModel;
 
 /**
@@ -47,7 +43,10 @@ public class PandaJobDetailFragment extends Fragment {
     TextView mJobDetail2TextView;
 
     @BindView(R.id.mapview)
-    MapView mapView;
+    MapView mMapView;
+
+    @BindView(R.id.pandajob_detail_status)
+    TextView mStatusTextView;
 
     private PandaJobModel mPandaJobModel;
 
@@ -66,28 +65,13 @@ public class PandaJobDetailFragment extends Fragment {
             Realm realm = ((MyApplication) getActivity().getApplication()).getRealm();
             mPandaJobModel = realm.where(PandaJobModel.class)
                     .equalTo("order_id", getArguments().getString(ARG_ITEM_ID)).findAll().get(0);
-
-            final CollapsingToolbarLayout mAppBarLayout = (CollapsingToolbarLayout) getActivity().findViewById((R.id.toolbar_layout));
-            if (mAppBarLayout != null) {
-                mAppBarLayout.setTitle(mPandaJobModel.getCustomer_name());
-
-                Picasso.with(getContext()).load(ImageCityFetcher.getImageUrl(mPandaJobModel.getJob_city())).into(new Target() {
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-                    }
-
-                    @Override
-                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom arg1) {
-                        Drawable drawImage = new BitmapDrawable(getResources(), bitmap);
-                        mAppBarLayout.setBackground(drawImage);
-                    }
-
-                    @Override
-                    public void onBitmapFailed(Drawable errorDrawable) {
-                    }
-                });
-            }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMapView.onResume();
     }
 
     @Override
@@ -96,6 +80,15 @@ public class PandaJobDetailFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.pandajob_detail, container, false);
         ButterKnife.bind(this, rootView);
+
+        final CollapsingToolbarLayout mAppBarLayout = (CollapsingToolbarLayout) getActivity().findViewById((R.id.toolbar_layout));
+        if (mAppBarLayout != null) {
+            mAppBarLayout.setTitle(mPandaJobModel.getCustomer_name() + " - " + mPandaJobModel.getJob_city());
+            mAppBarLayout.setBackgroundResource(PandaHelper.getImageResId(mPandaJobModel.getJob_city()));
+        }
+
+        mStatusTextView.setText(mPandaJobModel.getStatus());
+        mStatusTextView.setBackgroundColor(PandaHelper.getStatusColor(mPandaJobModel));
 
         if (mPandaJobModel != null) {
 
@@ -108,9 +101,9 @@ public class PandaJobDetailFragment extends Fragment {
             text += "Customer name" + ": " + mPandaJobModel.getCustomer_name();
             text += "\n";
             text += "\n";
-            text += "Address" + ": " + mPandaJobModel.getFormattedAddress();
+            text += "Address" + ": " + PandaHelper.getFormattedAddress(mPandaJobModel);
             text += "\n";
-            text += "Distance" + ": " + mPandaJobModel.getFormattedDistance();
+            text += "Distance" + ": " + PandaHelper.getFormattedDistance(mPandaJobModel);
             text += "\n";
             text += "Latitude, Longitude" + ": " + mPandaJobModel.getJob_latitude() + ", " + mPandaJobModel.getJob_longitude();
 
@@ -119,35 +112,44 @@ public class PandaJobDetailFragment extends Fragment {
             /*
             job details map
             */
-
-            // Gets to GoogleMap from the MapView and does initialization stuff
-            mapView.getMapAsync(new OnMapReadyCallback() {
+            mMapView.onCreate(savedInstanceState);
+            mMapView.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
-                    // Add a marker in Sydney, Australia, and move the camera.
-                    LatLng latlng = mPandaJobModel.getFormattedLatLng();
-                    googleMap.addMarker(new MarkerOptions().position(latlng).title(mPandaJobModel.getJob_city()));
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 13));
+                    googleMap.clear();
+
+                    UiSettings settings = googleMap.getUiSettings();
+                    settings.setAllGesturesEnabled(false);
+                    settings.setMyLocationButtonEnabled(false);
+
+                    final LatLng latlng = PandaHelper.getFormattedLatLng(mPandaJobModel);
+                    googleMap.addMarker(
+                            new MarkerOptions()
+                                    .position(latlng)
+                                    .icon(BitmapDescriptorFactory
+                                            .fromResource(R.drawable.ic_person_pin_black_36dp))
+                    );
+
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 13));
                 }
             });
-            mapView.onCreate(savedInstanceState);
 
 
             /*
             job details part 2
              */
 
-            text = "Job date" + ": " + mPandaJobModel.getFormattedDate();
+            text = "Job date" + ": " + PandaHelper.getFormattedDate(mPandaJobModel);
             text += "\n";
             text += "Job time" + ": " + mPandaJobModel.getOrder_time();
             text += "\n";
-            text += "Duration" + ": " + mPandaJobModel.getFormattedDuration();
+            text += "Duration" + ": " + PandaHelper.getFormattedDuration(mPandaJobModel);
             text += "\n";
             text += "Extras" + ": " + mPandaJobModel.getExtras();
             text += "\n";
             text += "Payment method" + ": " + mPandaJobModel.getPayment_method();
             text += "\n";
-            text += "Price" + ": " + mPandaJobModel.getFormattedPrice();
+            text += "Price" + ": " + PandaHelper.getFormattedPrice(mPandaJobModel);
             text += "\n";
             text += "Recurrency" + ": " + mPandaJobModel.getRecurrency();
             text += "\n";

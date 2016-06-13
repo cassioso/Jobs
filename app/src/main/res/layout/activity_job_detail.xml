@@ -18,11 +18,19 @@
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:adjustViewBounds="true"
             android:fitsSystemWindows="true"
+            android:transitionName="customer"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:expandedTitleTextAppearance="@style/ExpandedAppBar"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="bottom"
+                android:background="@drawable/shape_scrim" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/detail_toolbar"
@@ -47,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|start"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_input_get"
+        android:src="@drawable/ic_content_copy_black_36dp"
         app:layout_anchor="@+id/job_detail_container"
         app:layout_anchorGravity="top|end" />
 

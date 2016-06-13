@@ -11,7 +11,7 @@
     android:background="@android:color/white"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="10dp"
+    app:cardCornerRadius="5dp"
     app:cardElevation="5dp">
 
     <RelativeLayout
@@ -35,31 +35,32 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:background="@android:color/holo_blue_dark"
-            android:textColor="@android:color/white"
-            android:padding="2dp"
+            android:text="PENDING TO START"
             android:textAllCaps="true"
-            android:text="PENDING TO START"/>
+            android:textColor="@android:color/holo_blue_dark"
+            android:textStyle="bold|italic"
+            android:transitionName="status" />
 
 
         <TextView
-            android:id="@+id/pandajob_list_item_customername"
+            android:id="@+id/pandajob_list_item_customer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/pandajob_list_item_orderdatetime"
             android:layout_marginTop="@dimen/default_margin_small"
-            android:drawableLeft="@drawable/ic_person_outline_black_36dp"
+            android:drawableLeft="@drawable/ic_person_pin_black_36dp"
             android:drawablePadding="4dp"
             android:gravity="center_vertical"
             android:text="Customer Name"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:transitionName="customer" />
 
         <TextView
             android:id="@+id/pandajob_list_item_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/pandajob_list_item_customername"
+            android:layout_alignBaseline="@id/pandajob_list_item_customer"
             android:layout_alignParentRight="true"
             android:text="ORDERIDX" />
 
@@ -67,7 +68,7 @@
             android:id="@+id/pandajob_list_item_distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/pandajob_list_item_customername"
+            android:layout_below="@id/pandajob_list_item_customer"
             android:layout_marginTop="@dimen/default_margin_small"
             android:drawableLeft="@drawable/ic_info_outline_black_36dp"
             android:drawablePadding="4dp"

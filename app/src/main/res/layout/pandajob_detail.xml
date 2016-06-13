@@ -8,6 +8,17 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/pandajob_detail_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_dark"
+        android:gravity="center"
+        android:padding="@dimen/default_margin_small"
+        android:text="PENDING TO START"
+        android:textColor="@android:color/white"
+        android:transitionName="status" />
+
+    <TextView
         android:id="@+id/job_detail1"
         style="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
@@ -18,7 +29,8 @@
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapview"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="120dp" />
+
 
     <TextView
         android:id="@+id/job_detail2"
@@ -27,5 +39,4 @@
         android:layout_height="match_parent"
         android:padding="16dp"
         android:textIsSelectable="true" />
-
 </LinearLayout>

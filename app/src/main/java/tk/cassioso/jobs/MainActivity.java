@@ -107,14 +107,17 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        mJobRecyclerViewAdapter = new JobRecyclerViewAdapter(this, getSupportFragmentManager());
+        mJobRecyclerViewAdapter = new JobRecyclerViewAdapter(this, getSupportFragmentManager(), this);
         mRecyclerView.setAdapter(mJobRecyclerViewAdapter);
 
         RealmResults<PandaJobModel> realmResultJobs = realm.where(PandaJobModel.class).findAllSorted(order);
         List<PandaJobModel> listPandaJobsModel = realm.copyFromRealm(realmResultJobs);
         refreshData(listPandaJobsModel);
 
-        fetchJobModelList();
+        if (((MyApplication) getApplication()).isFetchPandaJobData()) {
+            fetchJobModelList();
+            ((MyApplication) getApplication()).setFetchPandaJobData(false);
+        }
     }
 
     private void fetchJobModelList() {

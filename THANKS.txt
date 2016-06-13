@@ -4,14 +4,26 @@ https://design.google.com/icons/
 Ralm
 http://realm.io/
 
-Picasso
-http://square.github.io/picasso/
-https://github.com/codepath/android_guides/wiki/Displaying-Images-with-the-Picasso-Library
-
 Butterknife
 http://jakewharton.github.io/butterknife/
 https://github.com/codepath/android_guides/wiki/Reducing-View-Boilerplate-with-Butterknife
 
-CardView
+CardView & RecyclerView
 https://developer.android.com/training/material/lists-cards.html
 https://developer.android.com/topic/libraries/support-library/features.html#v7-cardview
+
+GSON
+https://github.com/google/gson
+
+Picasso
+http://square.github.io/picasso/
+https://github.com/codepath/android_guides/wiki/Displaying-Images-with-the-Picasso-Library
+
+okhttp3
+https://github.com/square/okhttp
+
+Shared Element Activity Transition
+https://github.com/codepath/android_guides/wiki/Shared-Element-Activity-Transition
+
+Pull to refresh
+http://sapandiwakar.in/pull-to-refresh-for-android-recyclerview-or-any-other-vertically-scrolling-view/

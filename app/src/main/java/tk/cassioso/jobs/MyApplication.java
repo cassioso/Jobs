@@ -12,6 +12,8 @@ public class MyApplication extends Application {
 
     private RealmConfiguration mRealmConfiguration;
 
+    private boolean fetchPandaJobData = true;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -26,5 +28,13 @@ public class MyApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
         getRealm().close();
+    }
+
+    public boolean isFetchPandaJobData() {
+        return fetchPandaJobData;
+    }
+
+    public void setFetchPandaJobData(boolean fetchPandaJobData) {
+        this.fetchPandaJobData = fetchPandaJobData;
     }
 }
