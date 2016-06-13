@@ -34,14 +34,15 @@ public class JobRecyclerViewAdapter
     private FragmentManager mSupportFragmentManager;
     private Context mContext;
 
-    public JobRecyclerViewAdapter(Context context) {
+    public JobRecyclerViewAdapter(Context context, FragmentManager supportFragmentManager ) {
         mContext = context;
+        mSupportFragmentManager = supportFragmentManager;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.job_list_content, parent, false);
+                .inflate(R.layout.pandajob_list_item, parent, false);
         return new ViewHolder(view);
     }
 

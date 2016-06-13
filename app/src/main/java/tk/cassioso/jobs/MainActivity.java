@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -42,8 +43,12 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.job_list)
     RecyclerView mRecyclerView;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.no_data)
+    TextView mNoData;
 
     private JobRecyclerViewAdapter mJobRecyclerViewAdapter;
     private String order = "job_date";
@@ -101,11 +106,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        mJobRecyclerViewAdapter = new JobRecyclerViewAdapter(this);
+        mJobRecyclerViewAdapter = new JobRecyclerViewAdapter(this, getSupportFragmentManager());
 
         RealmResults<PandaJobModel> realmResultJobs = realm.where(PandaJobModel.class).findAllSorted(order);
         List<PandaJobModel> listPandaJobsModel = realm.copyFromRealm(realmResultJobs);
-        mJobRecyclerViewAdapter.refreshData(listPandaJobsModel);
+        refreshData(listPandaJobsModel);
 
         mRecyclerView.setAdapter(mJobRecyclerViewAdapter);
 
@@ -157,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         protected void onPostExecute(List<PandaJobModel> listPandaJobsModel) {
                             super.onPostExecute(listPandaJobsModel);
-                            mJobRecyclerViewAdapter.refreshData(listPandaJobsModel);
+                            refreshData(listPandaJobsModel);
                         }
                     }.execute();
 
@@ -166,5 +171,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void refreshData(List<PandaJobModel> listPandaJobModel){
+        if(listPandaJobModel == null || listPandaJobModel.size() == 0){
+            mNoData.setVisibility(View.VISIBLE);
+        } else {
+            mNoData.setVisibility(View.GONE);
+        }
+        mJobRecyclerViewAdapter.refreshData(listPandaJobModel);
     }
 }

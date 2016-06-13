@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Jobs</string>
+    <string name="app_name">Panda Jobs</string>
     <string name="title_job_detail">Job Detail</string>
     <string name="no_data_available">Check your network connection!</string>
     <string name="recurrency_once">Once</string>
@@ -12,4 +12,5 @@
     <string name="menu_action_order_by_date">Order by date</string>
     <string name="menu_action_order_by_distance">Order by distance</string>
     <string name="menu_action_order_by_price">Order by price</string>
+    <string name="no_data_to_display">There are no data to display!</string>
 </resources>

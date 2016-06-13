@@ -9,4 +9,4 @@
     android:background="@color/divider"
     app:layoutManager="LinearLayoutManager"
     tools:context=".MainActivity"
-    tools:listitem="@layout/job_list_content" />
+    tools:listitem="@layout/pandajob_list_item" />

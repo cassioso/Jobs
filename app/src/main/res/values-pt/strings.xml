@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Jobs</string>
+    <string name="app_name">Panda Jobs</string>
     <string name="no_data_available">Verifique a conexão de rede!</string>
     <string name="recurrency_every2weeks">A cada 2 semanas</string>
     <string name="recurrency_monthly">Mensalmente</string>
@@ -13,4 +13,5 @@
     <string name="menu_action_order_by_date">Ordnear pela data</string>
     <string name="menu_action_order_by_distance">Ordenar pela distância</string>
     <string name="menu_action_order_by_price">Ordenar pelo preço </string>
+    <string name="no_data_to_display">Não existem dados a serem exibidos!</string>
 </resources>
