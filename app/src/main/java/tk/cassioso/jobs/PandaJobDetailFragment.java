@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -38,6 +42,9 @@ public class PandaJobDetailFragment extends Fragment {
 
     @BindView(R.id.job_detail2)
     TextView mJobDetail2TextView;
+
+    @BindView(R.id.mapview)
+    MapView mapView;
 
     private PandaJobModel mPandaJobModel;
 
@@ -84,7 +91,7 @@ public class PandaJobDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.job_detail, container, false);
+        View rootView = inflater.inflate(R.layout.pandajob_detail, container, false);
         ButterKnife.bind(this, rootView);
 
         if (mPandaJobModel != null) {
@@ -110,6 +117,13 @@ public class PandaJobDetailFragment extends Fragment {
             job details map
             */
 
+            // Gets to GoogleMap from the MapView and does initialization stuff
+            mapView.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                }
+            });
+            mapView.onCreate(savedInstanceState);
 
 
             /*
