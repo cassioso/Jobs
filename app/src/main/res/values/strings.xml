@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Jobs</string>
     <string name="title_job_detail">Job Detail</string>
+    <string name="no_data_available">Check your network connection!</string>
+    <string name="recurrency_once">Once</string>
+    <string name="recurrency_weekly">Weekly</string>
+    <string name="recurrency_every2weeks">Every 2 weeks</string>
+    <string name="recurrency_monthly">Monthly</string>
+    <string name="recurrency_undefined">Undefined</string>
+    <string name="snackbar_action_retry">RETRY</string>
+    <string name="menu_action_refresh">Refresh data</string>
+    <string name="menu_action_order_by_date">Order by date</string>
+    <string name="menu_action_order_by_distance">Order by distance</string>
+    <string name="menu_action_order_by_price">Order by price</string>
 </resources>

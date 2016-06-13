@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_order_by_date"
+            android:checked="true"
+            android:title="@string/menu_action_order_by_date"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_order_by_distance"
+            android:title="@string/menu_action_order_by_distance"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_order_by_price"
+            android:title="@string/menu_action_order_by_price"
+            app:showAsAction="never" />
+    </group>
+
+    <!-- Refresh, should always be in the overflow -->
+    <item
+        android:id="@+id/action_refresh"
+        android:icon="@android:drawable/stat_notify_sync_noanim"
+        android:title="@string/menu_action_refresh"
+        app:showAsAction="always" />
+</menu>

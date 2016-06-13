@@ -1,29 +1,28 @@
 package tk.cassioso.jobs;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import tk.cassioso.jobs.data.JobModel;
+import io.realm.Realm;
+import tk.cassioso.jobs.data.PandaJobModel;
 
 /**
  * An activity representing a single Job detail screen. This
  * activity is only used narrow width devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link JobListActivity}.
+ * in a {@link MainActivity}.
  */
-public class JobDetailActivity extends AppCompatActivity {
+public class PandaJobDetailActivity extends AppCompatActivity {
+
+    public static final String ARG_ITEM_ID = "item_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +31,19 @@ public class JobDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Realm realm = ((MyApplication) getApplication()).getRealm();
+                PandaJobModel pandaJobModel = realm.where(PandaJobModel.class)
+                        .equalTo("order_id", getIntent()
+                                .getStringExtra(PandaJobDetailFragment.ARG_ITEM_ID))
+                        .findAll().get(0);
+
+                copyJobDetailToClipboard(getApplicationContext(), pandaJobModel);
+
+                Snackbar.make(view, "Job details copied to clipboard.", Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -60,9 +66,9 @@ public class JobDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(JobDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(JobDetailFragment.ARG_ITEM_ID));
-            JobDetailFragment fragment = new JobDetailFragment();
+            arguments.putString(PandaJobDetailFragment.ARG_ITEM_ID,
+                    getIntent().getStringExtra(PandaJobDetailFragment.ARG_ITEM_ID));
+            PandaJobDetailFragment fragment = new PandaJobDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.job_detail_container, fragment)
@@ -80,9 +86,20 @@ public class JobDetailActivity extends AppCompatActivity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            navigateUpTo(new Intent(this, JobListActivity.class));
+            navigateUpTo(new Intent(this, MainActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void copyJobDetailToClipboard(Context context, PandaJobModel pandaJobModel) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            clipboard.setText(pandaJobModel.toString());
+        } else {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", pandaJobModel.toString());
+            clipboard.setPrimaryClip(clip);
+        }
     }
 }

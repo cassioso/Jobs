@@ -8,5 +8,5 @@
     android:layout_height="match_parent"
     android:background="@color/divider"
     app:layoutManager="LinearLayoutManager"
-    tools:context="tk.cassioso.jobs.JobListActivity"
+    tools:context=".MainActivity"
     tools:listitem="@layout/job_list_content" />

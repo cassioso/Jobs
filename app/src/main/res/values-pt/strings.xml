@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Jobs</string>
+    <string name="no_data_available">Verifique a conexão de rede!</string>
+    <string name="recurrency_every2weeks">A cada 2 semanas</string>
+    <string name="recurrency_monthly">Mensalmente</string>
+    <string name="recurrency_once">Uma vez</string>
+    <string name="recurrency_undefined">Não definido</string>
+    <string name="recurrency_weekly">Semanalmente</string>
+    <string name="snackbar_action_retry">TENTAR NOVAMENTE</string>
+    <string name="title_job_detail">Detalhes do serviço</string>
+    <string name="menu_action_refresh">Atualizar dados</string>
+    <string name="menu_action_order_by_date">Ordnear pela data</string>
+    <string name="menu_action_order_by_distance">Ordenar pela distância</string>
+    <string name="menu_action_order_by_price">Ordenar pelo preço </string>
+</resources>

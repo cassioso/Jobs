@@ -3,15 +3,18 @@
     package="tk.cassioso.jobs">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".JobListActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,13 +24,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".JobDetailActivity"
+            android:name=".PandaJobDetailActivity"
             android:label="@string/title_job_detail"
-            android:parentActivityName=".JobListActivity"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="tk.cassioso.jobs.JobListActivity" />
+                android:value=".MainActivity" />
         </activity>
     </application>
 
