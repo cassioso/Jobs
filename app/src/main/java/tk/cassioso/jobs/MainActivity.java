@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -107,12 +108,11 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(getTitle());
 
         mJobRecyclerViewAdapter = new JobRecyclerViewAdapter(this, getSupportFragmentManager());
+        mRecyclerView.setAdapter(mJobRecyclerViewAdapter);
 
         RealmResults<PandaJobModel> realmResultJobs = realm.where(PandaJobModel.class).findAllSorted(order);
         List<PandaJobModel> listPandaJobsModel = realm.copyFromRealm(realmResultJobs);
         refreshData(listPandaJobsModel);
-
-        mRecyclerView.setAdapter(mJobRecyclerViewAdapter);
 
         fetchJobModelList();
     }
@@ -139,14 +139,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(Call call, Response response) {
-                try {
-                    Log.d(TAG, "Response code: " + response.code());
-                    final String json = response.body().string();
+            public void onResponse(Call call, final Response response) {
+                Log.d(TAG, "Response code: " + response.code());
 
-                    new AsyncTask<Void, Void, List<PandaJobModel>>() {
-                        @Override
-                        protected List<PandaJobModel> doInBackground(Void... params) {
+                new AsyncTask<Void, Void, List<PandaJobModel>>() {
+                    @Override
+                    protected List<PandaJobModel> doInBackground(Void... params) {
+                        try {
+                            String json = response.body().string();
+
                             Realm realm = ((MyApplication) getApplication()).getRealm();
                             realm.beginTransaction();
                             realm.deleteAll();
@@ -157,24 +158,26 @@ public class MainActivity extends AppCompatActivity {
                             List<PandaJobModel> copy = realm.copyFromRealm(pandaJobModelRealmResults);
 
                             return copy;
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
+                        return null;
+                    }
 
-                        @Override
-                        protected void onPostExecute(List<PandaJobModel> listPandaJobsModel) {
-                            super.onPostExecute(listPandaJobsModel);
+                    @Override
+                    protected void onPostExecute(List<PandaJobModel> listPandaJobsModel) {
+                        super.onPostExecute(listPandaJobsModel);
+                        if (listPandaJobsModel != null) {
                             refreshData(listPandaJobsModel);
                         }
-                    }.execute();
-
-                } catch (java.io.IOException e) {
-                    e.printStackTrace();
-                }
+                    }
+                }.execute();
             }
         });
     }
 
-    private void refreshData(List<PandaJobModel> listPandaJobModel){
-        if(listPandaJobModel == null || listPandaJobModel.size() == 0){
+    private void refreshData(List<PandaJobModel> listPandaJobModel) {
+        if (listPandaJobModel == null || listPandaJobModel.size() == 0) {
             mNoData.setVisibility(View.VISIBLE);
         } else {
             mNoData.setVisibility(View.GONE);

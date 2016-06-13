@@ -125,17 +125,16 @@ public class PandaJobDetailFragment extends Fragment {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
                     // Add a marker in Sydney, Australia, and move the camera.
-                    LatLng sydney = mPandaJobModel.getFormattedLatLng();
-                    googleMap.addMarker(new MarkerOptions().position(sydney).title(mPandaJobModel.getJob_city()));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
+                    LatLng latlng = mPandaJobModel.getFormattedLatLng();
+                    googleMap.addMarker(new MarkerOptions().position(latlng).title(mPandaJobModel.getJob_city()));
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 13));
                 }
             });
             mapView.onCreate(savedInstanceState);
 
 
             /*
-            job details part 1
+            job details part 2
              */
 
             text = "Job date" + ": " + mPandaJobModel.getFormattedDate();

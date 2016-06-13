@@ -182,7 +182,7 @@ public class PandaJobModel extends RealmObject {
          */
     public String getFormattedDistance() {
         if (distance == null || distance.isEmpty()) {
-            return null;
+            return "- KM";
         } else {
             return String.format("%.2f KM", Double.valueOf(distance));
         }

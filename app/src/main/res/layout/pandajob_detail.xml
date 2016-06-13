@@ -18,8 +18,7 @@
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapview"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:clickable="false" />
+        android:layout_height="200dp" />
 
     <TextView
         android:id="@+id/job_detail2"

@@ -2,6 +2,7 @@ package tk.cassioso.jobs.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
@@ -76,23 +77,40 @@ public class JobRecyclerViewAdapter
 
         PandaJobModel job = mListPandaJobModel.get(position);
 
-        viewHolder.mJobId.setText(job.getOrder_id());
-        viewHolder.mCustomerName.setText(job.getCustomer_name());
-        viewHolder.mOrderDate.setText(job.getFormattedDate());
-
-        if (job.getFormattedDistance() == null) {
-            viewHolder.mDistance.setVisibility(View.GONE);
-        } else {
-            viewHolder.mDistance.setVisibility(View.VISIBLE);
-            viewHolder.mDistance.setText(job.getFormattedDistance());
+        viewHolder.mOrderDate.setText(job.getFormattedDate() + " " + job.getOrder_time() + " (" + job.getFormattedDuration() + ")");
+        viewHolder.mStatus.setText(job.get__status());
+        switch (job.get__status()){
+            case "FULFILLED":
+                viewHolder.mStatus.setBackgroundColor(Color.parseColor("#0D47A1")); // blue
+                break;
+            case "START":
+                viewHolder.mStatus.setBackgroundColor(Color.parseColor("#1B5E20")); // green
+                break;
+            case "INVOICED":
+                viewHolder.mStatus.setBackgroundColor(Color.parseColor("#880E4F")); // pink
+                break;
+            case "CANCELLED":
+                viewHolder.mStatus.setBackgroundColor(Color.parseColor("#E65100")); // orange
+                break;
+            case "ERROR":
+                viewHolder.mStatus.setBackgroundColor(Color.parseColor("##b71c1c")); // red
+                break;
+            default:
+                viewHolder.mStatus.setBackgroundColor(Color.BLACK);
+                break;
         }
-
+        viewHolder.mCustomerName.setText(job.getCustomer_name());
+        viewHolder.mJobId.setText(job.getOrder_id());
+        viewHolder.mDistance.setText(job.getFormattedDistance());
         viewHolder.mPrice.setText(job.getFormattedPrice());
         viewHolder.mPaymentMethod.setText(job.getPayment_method());
     }
 
     @Override
     public int getItemCount() {
+        if(mListPandaJobModel == null){
+            return 0;
+        }
         return mListPandaJobModel.size();
     }
 
@@ -111,7 +129,7 @@ public class JobRecyclerViewAdapter
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.pandajob_list_item_root)
-        LinearLayout rootView;
+        View rootView;
 
         @BindView(R.id.pandajob_list_item_id)
         TextView mJobId;
@@ -119,7 +137,7 @@ public class JobRecyclerViewAdapter
         @BindView(R.id.pandajob_list_item_customername)
         TextView mCustomerName;
 
-        @BindView(R.id.pandajob_list_item_orderdate)
+        @BindView(R.id.pandajob_list_item_orderdatetime)
         TextView mOrderDate;
 
         @BindView(R.id.pandajob_list_item_distance)
@@ -131,6 +149,8 @@ public class JobRecyclerViewAdapter
         @BindView(R.id.pandajob_list_item_payment_method)
         TextView mPaymentMethod;
 
+        @BindView(R.id.pandajob_list_item_status)
+        TextView mStatus;
 
         public ViewHolder(View view) {
             super(view);
