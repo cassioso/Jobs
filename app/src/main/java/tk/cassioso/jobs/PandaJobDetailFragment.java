@@ -11,10 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -121,6 +124,11 @@ public class PandaJobDetailFragment extends Fragment {
             mapView.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
+                    // Add a marker in Sydney, Australia, and move the camera.
+                    LatLng sydney = mPandaJobModel.getFormattedLatLng();
+                    googleMap.addMarker(new MarkerOptions().position(sydney).title(mPandaJobModel.getJob_city()));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
                 }
             });
             mapView.onCreate(savedInstanceState);

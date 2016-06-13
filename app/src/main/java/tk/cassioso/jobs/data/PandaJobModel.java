@@ -2,6 +2,8 @@ package tk.cassioso.jobs.data;
 
 import android.content.Context;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -264,5 +266,19 @@ public class PandaJobModel extends RealmObject {
         text += "\n";
         text += "Status" + ": " + status;
         return text;
+    }
+
+    public LatLng getFormattedLatLng() {
+        LatLng latlng = null;
+
+        try {
+            double lat = Double.parseDouble(job_latitude);
+            double lng = Double.parseDouble(job_longitude);
+            latlng = new LatLng(lat, lng);
+        }catch (Exception e ){
+            latlng = new LatLng(0, 0);
+        }
+
+        return latlng;
     }
 }
