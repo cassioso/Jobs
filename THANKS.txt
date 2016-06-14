@@ -25,5 +25,5 @@ https://github.com/square/okhttp
 Shared Element Activity Transition
 https://github.com/codepath/android_guides/wiki/Shared-Element-Activity-Transition
 
-Pull to refresh
-http://sapandiwakar.in/pull-to-refresh-for-android-recyclerview-or-any-other-vertically-scrolling-view/
+Material ProgressBar
+https://github.com/DreaminginCodeZH/MaterialProgressBar

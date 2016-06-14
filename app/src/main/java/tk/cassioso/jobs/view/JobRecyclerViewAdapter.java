@@ -1,4 +1,4 @@
-package tk.cassioso.jobs.adapter;
+package tk.cassioso.jobs.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,8 +21,6 @@ import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import tk.cassioso.jobs.MyApplication;
-import tk.cassioso.jobs.PandaJobDetailActivity;
-import tk.cassioso.jobs.PandaJobDetailFragment;
 import tk.cassioso.jobs.R;
 import tk.cassioso.jobs.data.PandaHelper;
 import tk.cassioso.jobs.data.PandaJobModel;

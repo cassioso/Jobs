@@ -1,5 +1,6 @@
 package tk.cassioso.jobs.data;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 
@@ -144,6 +145,28 @@ public class PandaHelper {
         }
 
         return latlng;
+    }
+
+    /*
+    Copy PandaJobModel data to clipboard
+     */
+    public static void copyJobDetailToClipboard(PandaJobModel pandaJobModel, Activity activity) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            android.text.ClipboardManager clipboard =
+                    (android.text.ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+
+            clipboard.setText(pandaJobModel.toString());
+        } else {
+            android.content.ClipboardManager clipboard =
+                    (android.content.ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+
+            android.content.ClipData clip =
+                    android.content.ClipData.newPlainText(
+                            "Copied Text", pandaJobModel.toString()
+                    );
+
+            clipboard.setPrimaryClip(clip);
+        }
     }
 
 }

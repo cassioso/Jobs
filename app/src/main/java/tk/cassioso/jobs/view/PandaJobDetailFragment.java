@@ -1,4 +1,4 @@
-package tk.cassioso.jobs;
+package tk.cassioso.jobs.view;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -20,6 +20,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import tk.cassioso.jobs.MainActivity;
+import tk.cassioso.jobs.MyApplication;
+import tk.cassioso.jobs.R;
 import tk.cassioso.jobs.data.PandaHelper;
 import tk.cassioso.jobs.data.PandaJobModel;
 
@@ -106,7 +109,7 @@ public class PandaJobDetailFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
 
-        // header, status and orderID
+        // ********** header, status and orderID
 
         final CollapsingToolbarLayout mAppBarLayout = (CollapsingToolbarLayout) getActivity().findViewById((R.id.toolbar_layout));
         if (mAppBarLayout != null) {
@@ -121,7 +124,7 @@ public class PandaJobDetailFragment extends Fragment {
                 getString(R.string.pandajob_detail_orderid, mPandaJobModel.getOrder_id())
         );
 
-        // location
+        // ********** location
 
         String txtAddress = mPandaJobModel.getJob_street() + ", " + mPandaJobModel.getJob_postalcode() + " " + mPandaJobModel.getJob_city();
         mAddressTextView.setText(txtAddress);
@@ -156,7 +159,7 @@ public class PandaJobDetailFragment extends Fragment {
             }
         });
 
-        // schedule
+        // ********** schedule
 
         mDateTimeTextView.setText(
                 PandaHelper.getFormattedDate(mPandaJobModel) + " " + mPandaJobModel.getOrder_time()
@@ -170,7 +173,7 @@ public class PandaJobDetailFragment extends Fragment {
                 getString(R.string.pandajob_detail_recurrency, PandaHelper.getFormattedRecurrency(getContext(), mPandaJobModel).toLowerCase())
         );
 
-        // service
+        // ********** service
 
         mPriceTextView.setText(
                 PandaHelper.getFormattedPrice(mPandaJobModel)

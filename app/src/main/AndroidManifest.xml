@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PandaJobDetailActivity"
+            android:name=".view.PandaJobDetailActivity"
             android:label="@string/title_job_detail"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

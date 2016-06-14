@@ -1,7 +1,5 @@
-package tk.cassioso.jobs;
+package tk.cassioso.jobs.view;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import io.realm.Realm;
+import tk.cassioso.jobs.MainActivity;
+import tk.cassioso.jobs.MyApplication;
+import tk.cassioso.jobs.R;
+import tk.cassioso.jobs.data.PandaHelper;
 import tk.cassioso.jobs.data.PandaJobModel;
 
 /**
@@ -41,7 +43,7 @@ public class PandaJobDetailActivity extends AppCompatActivity {
                                 .getStringExtra(PandaJobDetailFragment.ARG_ITEM_ID))
                         .findAll().get(0);
 
-                copyJobDetailToClipboard(getApplicationContext(), pandaJobModel);
+                PandaHelper.copyJobDetailToClipboard(pandaJobModel, PandaJobDetailActivity.this);
 
                 Snackbar.make(view, getString(R.string.copy_successful), Snackbar.LENGTH_LONG).show();
             }
@@ -67,24 +69,13 @@ public class PandaJobDetailActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if (id == android.R.id.home) {
-//            navigateUpTo(new Intent(this, MainActivity.class));
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
-    private void copyJobDetailToClipboard(Context context, PandaJobModel pandaJobModel) {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
-            android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            clipboard.setText(pandaJobModel.toString());
-        } else {
-            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", pandaJobModel.toString());
-            clipboard.setPrimaryClip(clip);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            super.onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

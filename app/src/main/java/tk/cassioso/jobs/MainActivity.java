@@ -20,13 +20,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import tk.cassioso.jobs.adapter.JobRecyclerViewAdapter;
+import tk.cassioso.jobs.view.JobRecyclerViewAdapter;
 import tk.cassioso.jobs.data.PandaJobModel;
+import tk.cassioso.jobs.view.PandaJobDetailActivity;
 
 /**
  * An activity representing a list of Jobs. This activity
@@ -61,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.no_data)
     TextView mNoData;
+
+    @BindView(R.id.progressbar)
+    MaterialProgressBar mProgressbar;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -110,28 +115,38 @@ public class MainActivity extends AppCompatActivity {
         mJobRecyclerViewAdapter = new JobRecyclerViewAdapter(this, getSupportFragmentManager(), this);
         mRecyclerView.setAdapter(mJobRecyclerViewAdapter);
 
+
+        // retrieve stored data
         Realm realm = ((MyApplication) getApplication()).getRealm();
 
         RealmResults<PandaJobModel> realmResultJobs = realm.where(PandaJobModel.class).findAllSorted(order);
         List<PandaJobModel> listPandaJobsModel = realm.copyFromRealm(realmResultJobs);
         refreshData(listPandaJobsModel);
 
+        // retrieve data on app initialization
         if (((MyApplication) getApplication()).isFetchPandaJobData()) {
             fetchJobModelList();
             ((MyApplication) getApplication()).setFetchPandaJobData(false);
         }
     }
 
+    /*
+    TODO: move fetchJobModeList() method to a dedicated class
+     */
     private void fetchJobModelList() {
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(BASE_URL).build();
+
+        mProgressbar.setVisibility(View.VISIBLE);
 
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, java.io.IOException e) {
                 Log.e(TAG, e.getMessage(), e);
+
+                mProgressbar.setVisibility(View.GONE);
 
                 Snackbar.make(mRecyclerView, R.string.no_data_available, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.snackbar_action_retry, new View.OnClickListener() {
@@ -140,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                                 fetchJobModelList();
                             }
                         }).show();
-
             }
 
             @Override
@@ -148,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Response code: " + response.code());
 
                 new AsyncTask<Void, Void, List<PandaJobModel>>() {
+
                     @Override
                     protected List<PandaJobModel> doInBackground(Void... params) {
                         try {
@@ -172,6 +187,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     protected void onPostExecute(List<PandaJobModel> listPandaJobsModel) {
                         super.onPostExecute(listPandaJobsModel);
+
+                        mProgressbar.setVisibility(View.GONE);
+
                         if (listPandaJobsModel != null) {
                             refreshData(listPandaJobsModel);
                         }
@@ -181,6 +199,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /*
+    If data list is null or has size 0, a no data to display view will be shown
+     */
     private void refreshData(List<PandaJobModel> listPandaJobModel) {
         if (listPandaJobModel == null || listPandaJobModel.size() == 0) {
             mNoData.setVisibility(View.VISIBLE);
