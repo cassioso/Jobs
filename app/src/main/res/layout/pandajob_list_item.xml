@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="PENDING TO START"
+            android:text="PENDING"
             android:textAllCaps="true"
             android:textColor="@android:color/holo_blue_dark"
             android:textStyle="bold|italic"
@@ -47,10 +47,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/pandajob_list_item_orderdatetime"
             android:layout_marginTop="@dimen/default_margin_small"
+            android:layout_toLeftOf="@+id/pandajob_list_item_id"
             android:drawableLeft="@drawable/ic_person_pin_black_36dp"
             android:drawablePadding="4dp"
             android:gravity="center_vertical"
             android:text="Customer Name"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_alignParentLeft="true"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="18sp"
             android:transitionName="customer" />
@@ -72,7 +76,7 @@
             android:drawableLeft="@drawable/ic_info_outline_black_36dp"
             android:drawablePadding="4dp"
             android:gravity="center_vertical"
-            android:text="2.5KM"
+            android:text="500.08 KM"
             android:textAppearance="?attr/textAppearanceListItem" />
 
         <TextView
@@ -93,6 +97,10 @@
             android:layout_alignBaseline="@id/pandajob_list_item_price"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="@dimen/default_margin_small"
+            android:layout_toRightOf="@+id/pandajob_list_item_price"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:maxLines="1"
             android:text="wiretransfer"
             android:textAllCaps="true" />
     </RelativeLayout>
