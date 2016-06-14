@@ -163,11 +163,11 @@ public class PandaJobDetailFragment extends Fragment {
         );
 
         mDurationTextView.setText(
-                getString(R.string.pandajob_detail_duration, mPandaJobModel.getOrder_duration())
+                getString(R.string.pandajob_detail_duration, PandaHelper.getFormattedDuration(mPandaJobModel))
         );
 
         mRecurrencyTextView.setText(
-                getString(R.string.pandajob_detail_recurrency, PandaHelper.getFormattedRecurrency(getContext(), mPandaJobModel))
+                getString(R.string.pandajob_detail_recurrency, PandaHelper.getFormattedRecurrency(getContext(), mPandaJobModel).toLowerCase())
         );
 
         // service
@@ -185,8 +185,12 @@ public class PandaJobDetailFragment extends Fragment {
             mExtraTextView.setVisibility(View.GONE);
         } else {
             mExtraTextView.setVisibility(View.VISIBLE);
+
+            extras = extras.replaceAll(";", "\n- ");
+
             mExtraTextView.setText(
-                    getString(R.string.pandajob_detail_extras, extras)
+                    getString(R.string.pandajob_detail_extras,
+                            "\n- "+ extras)
             );
         }
 

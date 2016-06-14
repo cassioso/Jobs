@@ -43,7 +43,7 @@ public class PandaJobDetailActivity extends AppCompatActivity {
 
                 copyJobDetailToClipboard(getApplicationContext(), pandaJobModel);
 
-                Snackbar.make(view, "Job details copied to clipboard.", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, getString(R.string.copy_successful), Snackbar.LENGTH_LONG).show();
             }
         });
 

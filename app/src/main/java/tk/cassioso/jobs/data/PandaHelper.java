@@ -110,7 +110,7 @@ public class PandaHelper {
     TODO: internationalize price
      */
     public static String getFormattedPrice(PandaJobModel pandaJobModel) {
-        return "€" + pandaJobModel.getPrice();
+        return pandaJobModel.getPrice() + "EUR";
     }
 
 

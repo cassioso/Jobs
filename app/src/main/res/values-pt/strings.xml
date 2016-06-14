@@ -20,4 +20,5 @@
     <string name="pandajob_detail_recurrency">Periodicidade: %s</string>
     <string name="pandajob_detail_payment_method">Forma de pagamento: %s</string>
     <string name="pandajob_detail_extras">Extras: %s</string>
+    <string name="copy_successful">Detalhes do serviço copiado para o clipboard!</string>
 </resources>
