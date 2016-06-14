@@ -4,6 +4,10 @@ __Architecture Overview__
 
 <img src="app/pandajobs_overview.jpg" width="720">
 
+__Application Release__
+
+[app-release.apk](app/app-release.apk)
+
 __Nexus 5 Screenshots__
 
 <img src="release/Screenshot_20160614-085449_framed.png" width="240">
