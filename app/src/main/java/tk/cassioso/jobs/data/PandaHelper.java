@@ -16,6 +16,9 @@ import tk.cassioso.jobs.R;
  */
 public class PandaHelper {
 
+    /*
+    Returns a correspondent color depending on the status. Default color is Black.
+     */
     public static int getStatusColor(PandaJobModel pandaJobModel) {
         switch (pandaJobModel.get__status()) {
             case "FULFILLED":
@@ -33,6 +36,10 @@ public class PandaHelper {
         }
     }
 
+
+    /*
+    Returns a correspondent res image depending on the city.
+     */
     public static final int getImageResId(String cityname) {
         switch (cityname) {
             case "Berlin":
@@ -55,7 +62,7 @@ public class PandaHelper {
     }
 
     /*
-    Full address
+    Returns the full address
      */
     public static String getFormattedAddress(PandaJobModel pandaJobModel) {
         return pandaJobModel.getJob_city() + ", " + pandaJobModel.getJob_postalcode() + ", " + pandaJobModel.getJob_street();
@@ -63,12 +70,12 @@ public class PandaHelper {
     }
 
     /*
-        The distance in the json is in Km
+    The distance in the json is in Km
     */
     public static String getFormattedDistance(PandaJobModel pandaJobModel) {
-        String distance = pandaJobModel.getDistance();
+        final String distance = pandaJobModel.getDistance();
         if (distance == null || distance.isEmpty()) {
-            return "- KM";
+            return "- KM"; // unkown distance
         } else {
             return String.format("%.2f KM", Double.valueOf(distance));
         }
@@ -92,7 +99,7 @@ public class PandaHelper {
             case 28:
                 return context.getString(R.string.recurrency_monthly);
             default:
-                return context.getString(R.string.recurrency_undefined);
+                return context.getString(R.string.recurrency_undefined); // unknown recurrency
         }
     }
 
@@ -100,8 +107,8 @@ public class PandaHelper {
     Dates should be displayed as following: dd.mm.yyyy
      */
     public static String getFormattedDate(PandaJobModel pandaJobModel) {
-        SimpleDateFormat sm = new SimpleDateFormat("dd.MM.yyyy");
-        String strDate = sm.format(pandaJobModel.getJob_date());
+        final SimpleDateFormat sm = new SimpleDateFormat("dd.MM.yyyy");
+        final String strDate = sm.format(pandaJobModel.getJob_date());
         return strDate;
     }
 
@@ -110,54 +117,27 @@ public class PandaHelper {
     TODO: internationalize price
      */
     public static String getFormattedPrice(PandaJobModel pandaJobModel) {
-        return pandaJobModel.getPrice() + "EUR";
+        return pandaJobModel.getPrice() + " EUR";
     }
 
 
-    /**
-     * Duration
+    /*
+     Duration
      */
     public static String getFormattedDuration(PandaJobModel pandaJobModel) {
         return pandaJobModel.getOrder_duration() + "h";
     }
 
-    public static String toString(Context context, PandaJobModel pandaJobModel) {
-        String text = "Order Id" + ": " + pandaJobModel.getOrder_id();
-        text += "\n";
-        text += "Customer name" + ": " + pandaJobModel.getCustomer_name();
-        text += "\n";
-        text += "\n";
-        text += "Address" + ": " + getFormattedAddress(pandaJobModel);
-        text += "\n";
-        text += "Distance" + ": " + getFormattedDistance(pandaJobModel);
-        text += "\n";
-        text += "Latitude, Longitude" + ": " + pandaJobModel.getJob_latitude() + ", " + pandaJobModel.getJob_longitude();
-        text += "\n";
-        text += "\n";
-        text += "Job date" + ": " + getFormattedDate(pandaJobModel);
-        text += "\n";
-        text += "Job time" + ": " + pandaJobModel.getOrder_time();
-        text += "\n";
-        text += "Duration" + ": " + getFormattedDuration(pandaJobModel);
-        text += "\n";
-        text += "Extras" + ": " + pandaJobModel.getExtras();
-        text += "\n";
-        text += "Payment method" + ": " + pandaJobModel.getPayment_method();
-        text += "\n";
-        text += "Price" + ": " + getFormattedPrice(pandaJobModel);
-        text += "\n";
-        text += "Recurrency" + ": " + getFormattedRecurrency(context, pandaJobModel);
-        text += "\n";
-        text += "Status" + ": " + pandaJobModel.getStatus();
-        return text;
-    }
-
+    /*
+    Returns LatLng object based on latlng data on PandaJobModel.
+    It will returns 0,0 coordinates if something wrong happens during values parsing.
+     */
     public static LatLng getFormattedLatLng(PandaJobModel pandaJobModel) {
         LatLng latlng = null;
 
         try {
-            double lat = Double.parseDouble(pandaJobModel.getJob_latitude());
-            double lng = Double.parseDouble(pandaJobModel.getJob_longitude());
+            final double lat = Double.parseDouble(pandaJobModel.getJob_latitude());
+            final double lng = Double.parseDouble(pandaJobModel.getJob_longitude());
             latlng = new LatLng(lat, lng);
         } catch (Exception e) {
             latlng = new LatLng(0, 0);

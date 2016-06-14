@@ -27,15 +27,23 @@ import tk.cassioso.jobs.R;
 import tk.cassioso.jobs.data.PandaHelper;
 import tk.cassioso.jobs.data.PandaJobModel;
 
+/*
+    Class responsible for list items construction
+ */
 public class JobRecyclerViewAdapter
         extends RecyclerView.Adapter<JobRecyclerViewAdapter.ViewHolder> {
 
     public static final String TAG = "JobRecyclerViewAdapter";
 
+    // flag used to define if the app is running on a big enough screen to use two panels
     boolean mTwoPane;
+
     private List<PandaJobModel> mListPandaJobModel;
+
     private FragmentManager mSupportFragmentManager;
+
     private Context mContext;
+
     private Activity mActivity;
 
     public JobRecyclerViewAdapter(Context context, FragmentManager supportFragmentManager, Activity activity) {
@@ -54,16 +62,14 @@ public class JobRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
 
+        // The dual_pane flag is true only in the  large-screen layouts (res/values-sw600dp).
+        // If this flag is true, then the activity should be in two-pane mode.
         viewHolder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // The detail container view will be present only in the
-                // large-screen layouts (res/values-sw600dp).
-                // If this view is present, then the
-                // activity should be in two-pane mode.
-
                 Context context = v.getContext();
                 if (context.getResources().getBoolean(R.bool.dual_pane)) {
+                    // update second panel
                     Bundle arguments = new Bundle();
                     arguments.putString(PandaJobDetailFragment.ARG_ITEM_ID, mListPandaJobModel.get(position).getOrder_id());
                     PandaJobDetailFragment fragment = new PandaJobDetailFragment();
@@ -72,6 +78,7 @@ public class JobRecyclerViewAdapter
                             .replace(R.id.job_detail_container, fragment)
                             .commit();
                 } else {
+                    // start activity with job details
                     Intent intent = new Intent(context, PandaJobDetailActivity.class);
                     intent.putExtra(PandaJobDetailActivity.ARG_ITEM_ID, mListPandaJobModel.get(position).getOrder_id());
 

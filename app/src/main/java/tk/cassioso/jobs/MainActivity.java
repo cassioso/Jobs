@@ -42,6 +42,17 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String BASE_URL = "http://private-14c693-rentapanda.apiary-mock.com/jobs";
 
+    private JobRecyclerViewAdapter mJobRecyclerViewAdapter;
+
+    // TODO: Persist order on SharedPreference
+    private String order = "job_date";
+
+    /**
+     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
+     * device.
+     */
+    private boolean mTwoPane;
+
     @BindView(R.id.job_list)
     RecyclerView mRecyclerView;
 
@@ -50,15 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.no_data)
     TextView mNoData;
-
-    private JobRecyclerViewAdapter mJobRecyclerViewAdapter;
-    private String order = "job_date";
-
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
-    private boolean mTwoPane;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -102,13 +104,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Realm realm = ((MyApplication) getApplication()).getRealm();
-
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
         mJobRecyclerViewAdapter = new JobRecyclerViewAdapter(this, getSupportFragmentManager(), this);
         mRecyclerView.setAdapter(mJobRecyclerViewAdapter);
+
+        Realm realm = ((MyApplication) getApplication()).getRealm();
 
         RealmResults<PandaJobModel> realmResultJobs = realm.where(PandaJobModel.class).findAllSorted(order);
         List<PandaJobModel> listPandaJobsModel = realm.copyFromRealm(realmResultJobs);

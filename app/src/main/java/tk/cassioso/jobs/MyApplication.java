@@ -12,6 +12,9 @@ public class MyApplication extends Application {
 
     private RealmConfiguration mRealmConfiguration;
 
+    /*
+    The jobs should be requested only when the user opens the app (first time AND coming back from background).
+     */
     private boolean fetchPandaJobData = true;
 
     @Override

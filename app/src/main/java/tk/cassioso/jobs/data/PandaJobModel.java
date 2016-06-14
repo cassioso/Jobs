@@ -1,35 +1,46 @@
 package tk.cassioso.jobs.data;
 
-import android.content.Context;
-
-import com.google.android.gms.maps.model.LatLng;
-
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import io.realm.RealmObject;
 import io.realm.annotations.RealmClass;
-import tk.cassioso.jobs.R;
 
 // "org.jsonschema2pojo"
 @RealmClass
 public class PandaJobModel extends RealmObject {
+
     private String __status;
+
     private String customer_name;
+
     private String distance;
+
     private Date job_date;
+
     private String extras;
+
     private int order_duration;
+
     private String order_id;
+
     private String order_time;
+
     private String payment_method;
+
     private float price;
+
     private int recurrency;
+
     private String job_city;
+
     private String job_latitude;
+
     private String job_longitude;
+
     private int job_postalcode;
+
     private String job_street;
+
     private String status;
 
     public String get__status() {
@@ -47,7 +58,6 @@ public class PandaJobModel extends RealmObject {
     public void setCustomer_name(String customer_name) {
         this.customer_name = customer_name;
     }
-
 
     public Date getJob_date() {
         return job_date;
