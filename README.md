@@ -20,10 +20,9 @@ __10" Tablet__
 
 __Main technologies and resources__
 
-Google Material Icons
-https://design.google.com/icons/
-
-* Ralm
+* Google Material Icons
+   https://design.google.com/icons/
+* Realm
    http://realm.io/
 * Butterknife
    http://jakewharton.github.io/butterknife/
