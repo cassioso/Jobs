@@ -1,5 +1,8 @@
 Panda Jobs
 
+__Architecture Overview__
+
+<img src="app/pandajobs_overview.jpg" width="720">
 
 __Nexus 5 Screenshots__
 
@@ -28,9 +31,7 @@ https://design.google.com/icons/
    https://github.com/google/gson
 * okhttp3
    https://github.com/square/okhttp
-
-Shared Element Activity Transition
-https://github.com/codepath/android_guides/wiki/Shared-Element-Activity-Transition
-
-Material ProgressBar
-https://github.com/DreaminginCodeZH/MaterialProgressBar
+* Shared Element Activity Transition
+   https://github.com/codepath/android_guides/wiki/Shared-Element-Activity-Transition
+* Material ProgressBar
+   https://github.com/DreaminginCodeZH/MaterialProgressBar
