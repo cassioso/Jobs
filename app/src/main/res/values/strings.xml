@@ -13,4 +13,10 @@
     <string name="menu_action_order_by_distance">Order by distance</string>
     <string name="menu_action_order_by_price">Order by price</string>
     <string name="no_data_to_display">There are no data to display!</string>
+    <string name="pandajob_detail_distance">Distance: %s</string>
+    <string name="pandajob_detail_orderid">Order ID: %s</string>
+    <string name="pandajob_detail_duration">Duration: %s</string>
+    <string name="pandajob_detail_recurrency">Recurrency: %s</string>
+    <string name="pandajob_detail_payment_method">Payment method: %s</string>
+    <string name="pandajob_detail_extras">Extras: %s</string>
 </resources>

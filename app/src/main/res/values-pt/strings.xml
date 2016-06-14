@@ -14,4 +14,10 @@
     <string name="menu_action_order_by_distance">Ordenar pela distância</string>
     <string name="menu_action_order_by_price">Ordenar pelo preço </string>
     <string name="no_data_to_display">Não existem dados a serem exibidos!</string>
+    <string name="pandajob_detail_distance">Distância: %s</string>
+    <string name="pandajob_detail_orderid">Código do serviço: %s</string>
+    <string name="pandajob_detail_duration">Duração: %s</string>
+    <string name="pandajob_detail_recurrency">Periodicidade: %s</string>
+    <string name="pandajob_detail_payment_method">Forma de pagamento: %s</string>
+    <string name="pandajob_detail_extras">Extras: %s</string>
 </resources>

@@ -36,17 +36,42 @@ public class PandaJobDetailFragment extends Fragment {
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
-    @BindView(R.id.job_detail1)
-    TextView mJobDetail1TextView;
-
-    @BindView(R.id.job_detail2)
-    TextView mJobDetail2TextView;
 
     @BindView(R.id.mapview)
     MapView mMapView;
 
     @BindView(R.id.pandajob_detail_status)
     TextView mStatusTextView;
+
+    @BindView(R.id.pandajob_detail_orderid)
+    TextView mOrderIdTextView;
+
+    @BindView(R.id.pandajob_detail_address)
+    TextView mAddressTextView;
+
+    @BindView(R.id.pandajob_detail_distance)
+    TextView mDitanceTextView;
+
+    @BindView(R.id.pandajob_detail_latlng)
+    TextView mLatLngTextView;
+
+    @BindView(R.id.pandajob_detail_datetime)
+    TextView mDateTimeTextView;
+
+    @BindView(R.id.pandajob_detail_duration)
+    TextView mDurationTextView;
+
+    @BindView(R.id.pandajob_detail_recurrency)
+    TextView mRecurrencyTextView;
+
+    @BindView(R.id.pandajob_detail_price)
+    TextView mPriceTextView;
+
+    @BindView(R.id.pandajob_detail_paymentmethod)
+    TextView mPaymentTextView;
+
+    @BindView(R.id.pandajob_detail_extras)
+    TextView mExtraTextView;
 
     private PandaJobModel mPandaJobModel;
 
@@ -75,11 +100,13 @@ public class PandaJobDetailFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.pandajob_detail, container, false);
         ButterKnife.bind(this, rootView);
+
+
+        // header, status and orderID
 
         final CollapsingToolbarLayout mAppBarLayout = (CollapsingToolbarLayout) getActivity().findViewById((R.id.toolbar_layout));
         if (mAppBarLayout != null) {
@@ -90,74 +117,79 @@ public class PandaJobDetailFragment extends Fragment {
         mStatusTextView.setText(mPandaJobModel.getStatus());
         mStatusTextView.setBackgroundColor(PandaHelper.getStatusColor(mPandaJobModel));
 
-        if (mPandaJobModel != null) {
+        mOrderIdTextView.setText(
+                getString(R.string.pandajob_detail_orderid, mPandaJobModel.getOrder_id())
+        );
 
-            /*
-            job details part 1
-             */
+        // location
 
-            String text = "Order Id" + ": " + mPandaJobModel.getOrder_id();
-            text += "\n";
-            text += "Customer name" + ": " + mPandaJobModel.getCustomer_name();
-            text += "\n";
-            text += "\n";
-            text += "Address" + ": " + PandaHelper.getFormattedAddress(mPandaJobModel);
-            text += "\n";
-            text += "Distance" + ": " + PandaHelper.getFormattedDistance(mPandaJobModel);
-            text += "\n";
-            text += "Latitude, Longitude" + ": " + mPandaJobModel.getJob_latitude() + ", " + mPandaJobModel.getJob_longitude();
+        String txtAddress = mPandaJobModel.getJob_street() + ", " + mPandaJobModel.getJob_postalcode() + " " + mPandaJobModel.getJob_city();
+        mAddressTextView.setText(txtAddress);
 
-            mJobDetail1TextView.setText(text);
+        mDitanceTextView.setText(
+                getString(R.string.pandajob_detail_distance, PandaHelper.getFormattedDistance(mPandaJobModel))
+        );
 
-            /*
-            job details map
-            */
-            mMapView.onCreate(savedInstanceState);
-            mMapView.getMapAsync(new OnMapReadyCallback() {
-                @Override
-                public void onMapReady(GoogleMap googleMap) {
-                    googleMap.clear();
+        mLatLngTextView.setText(
+                PandaHelper.getFormattedLatLng(mPandaJobModel).toString()
+        );
 
-                    UiSettings settings = googleMap.getUiSettings();
-                    settings.setAllGesturesEnabled(false);
-                    settings.setMyLocationButtonEnabled(false);
+        mMapView.onCreate(savedInstanceState);
+        mMapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                googleMap.clear();
 
-                    final LatLng latlng = PandaHelper.getFormattedLatLng(mPandaJobModel);
-                    googleMap.addMarker(
-                            new MarkerOptions()
-                                    .position(latlng)
-                                    .icon(BitmapDescriptorFactory
-                                            .fromResource(R.drawable.ic_person_pin_black_36dp))
-                    );
+                UiSettings settings = googleMap.getUiSettings();
+                settings.setAllGesturesEnabled(false);
+                settings.setMyLocationButtonEnabled(false);
 
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 13));
-                }
-            });
+                final LatLng latlng = PandaHelper.getFormattedLatLng(mPandaJobModel);
+                googleMap.addMarker(
+                        new MarkerOptions()
+                                .position(latlng)
+                                .icon(BitmapDescriptorFactory
+                                        .fromResource(R.drawable.ic_person_pin_black_36dp))
+                );
 
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 13));
+            }
+        });
 
-            /*
-            job details part 2
-             */
+        // schedule
 
-            text = "Job date" + ": " + PandaHelper.getFormattedDate(mPandaJobModel);
-            text += "\n";
-            text += "Job time" + ": " + mPandaJobModel.getOrder_time();
-            text += "\n";
-            text += "Duration" + ": " + PandaHelper.getFormattedDuration(mPandaJobModel);
-            text += "\n";
-            text += "Extras" + ": " + mPandaJobModel.getExtras();
-            text += "\n";
-            text += "Payment method" + ": " + mPandaJobModel.getPayment_method();
-            text += "\n";
-            text += "Price" + ": " + PandaHelper.getFormattedPrice(mPandaJobModel);
-            text += "\n";
-            text += "Recurrency" + ": " + mPandaJobModel.getRecurrency();
-            text += "\n";
-            text += "Status" + ": " + mPandaJobModel.getStatus();
+        mDateTimeTextView.setText(
+                PandaHelper.getFormattedDate(mPandaJobModel) + " " + mPandaJobModel.getOrder_time()
+        );
 
-            mJobDetail2TextView.setText(text);
+        mDurationTextView.setText(
+                getString(R.string.pandajob_detail_duration, mPandaJobModel.getOrder_duration())
+        );
 
+        mRecurrencyTextView.setText(
+                getString(R.string.pandajob_detail_recurrency, PandaHelper.getFormattedRecurrency(getContext(), mPandaJobModel))
+        );
+
+        // service
+
+        mPriceTextView.setText(
+                PandaHelper.getFormattedPrice(mPandaJobModel)
+        );
+
+        mPaymentTextView.setText(
+                getString(R.string.pandajob_detail_payment_method, mPandaJobModel.getPayment_method().toLowerCase())
+        );
+
+        String extras = mPandaJobModel.getExtras();
+        if (extras == null || extras.isEmpty()) {
+            mExtraTextView.setVisibility(View.GONE);
+        } else {
+            mExtraTextView.setVisibility(View.VISIBLE);
+            mExtraTextView.setText(
+                    getString(R.string.pandajob_detail_extras, extras)
+            );
         }
+
         return rootView;
     }
 }

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pandajob_list_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="1dp"
-    android:background="@android:color/white"
-    android:orientation="vertical">
+    android:background="@android:color/white">
 
     <TextView
         android:id="@+id/pandajob_detail_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="@android:color/holo_blue_dark"
         android:gravity="center"
         android:padding="@dimen/default_margin_small"
@@ -19,24 +19,127 @@
         android:transitionName="status" />
 
     <TextView
-        android:id="@+id/job_detail1"
-        style="?android:attr/textAppearanceLarge"
+        android:id="@+id/pandajob_detail_orderid"
+        style="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pandajob_detail_status"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/default_margin"
+        android:text="@string/pandajob_detail_orderid"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/label_pin_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/pandajob_detail_orderid"
+        android:layout_margin="@dimen/default_margin"
+        android:src="@drawable/ic_location_on_black_36dp" />
+
+    <TextView
+        android:id="@+id/pandajob_detail_address"
+        style="@style/TextAppearance.Detail"
+        android:layout_alignTop="@+id/label_pin_address"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_toRightOf="@+id/label_pin_address"
+        android:text="Kochstraße 27, 10200 Berlin" />
+
+    <TextView
+        android:id="@+id/pandajob_detail_distance"
+        style="@style/TextAppearance.Detail"
+        android:layout_alignLeft="@+id/pandajob_detail_address"
+        android:layout_below="@+id/pandajob_detail_address"
+        android:layout_marginRight="@dimen/default_margin"
+        android:text="@string/pandajob_detail_distance" />
+
+    <TextView
+        android:id="@+id/pandajob_detail_latlng"
+        style="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:textIsSelectable="true" />
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/pandajob_detail_distance"
+        android:layout_below="@+id/pandajob_detail_distance"
+        android:layout_marginRight="@dimen/default_margin"
+        android:text="48.1209831,9.1928371928301"
+        android:textIsSelectable="true"
+        android:textStyle="italic" />
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapview"
         android:layout_width="match_parent"
-        android:layout_height="120dp" />
+        android:layout_height="120dp"
+        android:layout_below="@+id/pandajob_detail_latlng"
+        android:layout_marginTop="@dimen/default_margin"
+        android:background="@android:color/holo_blue_dark" />
 
+    <ImageView
+        android:id="@+id/label_pin_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/mapview"
+        android:layout_margin="@dimen/default_margin"
+        android:src="@drawable/ic_access_time_black_36dp" />
 
     <TextView
-        android:id="@+id/job_detail2"
-        style="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:textIsSelectable="true" />
-</LinearLayout>
+        android:id="@+id/pandajob_detail_datetime"
+        style="@style/TextAppearance.Detail"
+        android:layout_alignTop="@+id/label_pin_time"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_toRightOf="@+id/label_pin_time"
+        android:text="25.12.2016 20:00" />
+
+    <TextView
+        android:id="@+id/pandajob_detail_duration"
+        style="@style/TextAppearance.Detail"
+        android:layout_alignLeft="@+id/pandajob_detail_datetime"
+        android:layout_below="@+id/pandajob_detail_datetime"
+        android:layout_marginRight="@dimen/default_margin"
+        android:text="@string/pandajob_detail_duration" />
+
+    <TextView
+        android:id="@+id/pandajob_detail_recurrency"
+        style="@style/TextAppearance.Detail"
+        android:layout_alignLeft="@+id/pandajob_detail_duration"
+        android:layout_below="@+id/pandajob_detail_duration"
+        android:layout_marginRight="@dimen/default_margin"
+        android:text="@string/pandajob_detail_recurrency" />
+
+    <ImageView
+        android:id="@+id/label_pin_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/pandajob_detail_recurrency"
+        android:layout_margin="@dimen/default_margin"
+        android:src="@drawable/ic_attach_money_black_36dp" />
+
+    <TextView
+        android:id="@+id/pandajob_detail_price"
+        style="@style/TextAppearance.Detail"
+        android:layout_alignTop="@+id/label_pin_service"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_toRightOf="@+id/label_pin_service"
+        android:text="80.0 EUR" />
+
+    <TextView
+        android:id="@+id/pandajob_detail_paymentmethod"
+        style="@style/TextAppearance.Detail"
+        android:layout_alignLeft="@+id/pandajob_detail_price"
+        android:layout_below="@+id/pandajob_detail_price"
+        android:layout_marginRight="@dimen/default_margin"
+        android:text="@string/pandajob_detail_payment_method" />
+
+    <TextView
+        android:id="@+id/pandajob_detail_extras"
+        style="@style/TextAppearance.Detail"
+        android:layout_alignLeft="@+id/pandajob_detail_paymentmethod"
+        android:layout_below="@+id/pandajob_detail_paymentmethod"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:text="@string/pandajob_detail_extras" />
+
+
+</RelativeLayout>
