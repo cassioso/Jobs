@@ -20,35 +20,21 @@ __10" Tablet Screenshot__
 __Main technologies and resources__
 
 * Google Material Icons
-
-   https://design.google.com/icons/
-
+  * https://design.google.com/icons/
 * Realm
-
-   http://realm.io/
-
+  * http://realm.io/
 * Butterknife
-
-   http://jakewharton.github.io/butterknife/
-   https://github.com/codepath/android_guides/wiki/Reducing-View-Boilerplate-with-Butterknife
-
+  * http://jakewharton.github.io/butterknife/
+  * https://github.com/codepath/android_guides/wiki/Reducing-View-Boilerplate-with-Butterknife
 * CardView & RecyclerView
-
-   https://developer.android.com/training/material/lists-cards.html
-   https://developer.android.com/topic/libraries/support-library/features.html#v7-cardview
-
+  * https://developer.android.com/training/material/lists-cards.html
+  * https://developer.android.com/topic/libraries/support-library/features.html#v7-cardview
 * GSON
-
-   https://github.com/google/gson
-
+  * https://github.com/google/gson
 * okhttp3
-
-   https://github.com/square/okhttp
+  * https://github.com/square/okhttp
 
 * Shared Element Activity Transition
-
-   https://github.com/codepath/android_guides/wiki/Shared-Element-Activity-Transition
-
+  * https://github.com/codepath/android_guides/wiki/Shared-Element-Activity-Transition
 * Material ProgressBar
-
-   https://github.com/DreaminginCodeZH/MaterialProgressBar
+  * https://github.com/DreaminginCodeZH/MaterialProgressBar
