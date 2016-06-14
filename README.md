@@ -1,5 +1,12 @@
 Panda Jobs
 
+__Architecture Overview__
+
+<img src="app/pandajobs_overview.jpg" width="720">
+
+__Application Release__
+
+[app-release.apk](app/app-release.apk)
 
 __Nexus 5 Screenshots__
 
@@ -13,10 +20,9 @@ __10" Tablet__
 
 __Main technologies and resources__
 
-Google Material Icons
-https://design.google.com/icons/
-
-* Ralm
+* Google Material Icons
+   https://design.google.com/icons/
+* Realm
    http://realm.io/
 * Butterknife
    http://jakewharton.github.io/butterknife/
@@ -28,9 +34,7 @@ https://design.google.com/icons/
    https://github.com/google/gson
 * okhttp3
    https://github.com/square/okhttp
-
-Shared Element Activity Transition
-https://github.com/codepath/android_guides/wiki/Shared-Element-Activity-Transition
-
-Material ProgressBar
-https://github.com/DreaminginCodeZH/MaterialProgressBar
+* Shared Element Activity Transition
+   https://github.com/codepath/android_guides/wiki/Shared-Element-Activity-Transition
+* Material ProgressBar
+   https://github.com/DreaminginCodeZH/MaterialProgressBar
