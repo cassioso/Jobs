@@ -146,7 +146,12 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call call, java.io.IOException e) {
                 Log.e(TAG, e.getMessage(), e);
 
-                mProgressbar.setVisibility(View.GONE);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mProgressbar.setVisibility(View.GONE);
+                    }
+                });
 
                 Snackbar.make(mRecyclerView, R.string.no_data_available, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.snackbar_action_retry, new View.OnClickListener() {
@@ -175,9 +180,7 @@ public class MainActivity extends AppCompatActivity {
                             realm.commitTransaction();
 
                             RealmResults<PandaJobModel> pandaJobModelRealmResults = realm.where(PandaJobModel.class).findAllSorted(order);
-                            List<PandaJobModel> copy = realm.copyFromRealm(pandaJobModelRealmResults);
-
-                            return copy;
+                            return realm.copyFromRealm(pandaJobModelRealmResults);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
