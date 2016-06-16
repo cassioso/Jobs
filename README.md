@@ -33,7 +33,6 @@ __Main technologies and resources__
   * https://github.com/google/gson
 * okhttp3
   * https://github.com/square/okhttp
-
 * Shared Element Activity Transition
   * https://github.com/codepath/android_guides/wiki/Shared-Element-Activity-Transition
 * Material ProgressBar
